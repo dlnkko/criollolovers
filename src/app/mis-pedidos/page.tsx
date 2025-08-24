@@ -1,13 +1,17 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Pedido } from '@/lib/supabaseClient'
 import { PedidosService } from '@/lib/pedidosService'
 import { PriceCalculator } from '@/utils/priceCalculator'
 import { DateHelpers } from '@/utils/dateHelpers'
 
-export default function MisPedidosPage() {
+// Forzar renderizado dinámico para evitar errores de Supabase durante build
+export const dynamic = 'force-dynamic'
+
+// Componente interno que usa useSearchParams
+function MisPedidosContent() {
   const [pedidos, setPedidos] = useState<Pedido[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -225,5 +229,18 @@ export default function MisPedidosPage() {
         )}
       </div>
     </div>
+  )
+}
+
+// Componente principal que envuelve el contenido en Suspense
+export default function MisPedidosPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-orange-600"></div>
+      </div>
+    }>
+      <MisPedidosContent />
+    </Suspense>
   )
 }
