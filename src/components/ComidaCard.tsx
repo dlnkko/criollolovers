@@ -14,7 +14,7 @@ export default function ComidaCard({ comida }: ComidaCardProps) {
   const cantidadActual = comidaSeleccionada?.cantidad || 0
   
   // Verificar si es plato principal
-  const esPlatoPrincipal = !esComplemento(comida.nombre)
+  const esPlatoPrincipal = !esComplemento(comida)
   
   // Calcular si habría combo si se agrega esta comida
   const platosPrincipalesActuales = contarPlatosPrincipales(comidasSeleccionadas)
