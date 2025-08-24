@@ -74,6 +74,17 @@ export default function ListaComidas() {
               <span className="md:hidden">{platosPrincipales.length}</span>
             </div>
           </div>
+        </div>
+        
+        {/* Texto de mínimo 3 porciones */}
+        <div className="mb-4">
+          <p className="text-sm md:text-base text-orange-700 bg-orange-50 border border-orange-200 rounded-lg px-3 py-2 flex items-center">
+            <span className="text-orange-600 mr-2">⚠️</span>
+            <span className="font-medium">Recuerda que son mínimo 3 porciones por plato</span>
+          </p>
+        </div>
+        
+        <div>
           <div className="flex items-center gap-2">
             <button 
               onClick={() => {

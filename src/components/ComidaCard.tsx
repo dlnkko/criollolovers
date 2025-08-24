@@ -1,4 +1,4 @@
-import { Comida, obtenerPrecioComida, contarPlatosPrincipales } from '@/lib/supabaseClient'
+import { Comida, obtenerPrecioComida, contarPlatosPrincipales, esComplemento } from '@/lib/supabaseClient'
 import { PriceCalculator } from '@/utils/priceCalculator'
 import { usePedidosStore } from '@/store/pedidosStore'
 
@@ -13,6 +13,9 @@ export default function ComidaCard({ comida }: ComidaCardProps) {
   const comidaSeleccionada = comidasSeleccionadas.find(cs => cs.comida.id === comida.id)
   const cantidadActual = comidaSeleccionada?.cantidad || 0
   
+  // Verificar si es plato principal
+  const esPlatoPrincipal = !esComplemento(comida.nombre)
+  
   // Calcular si habría combo si se agrega esta comida
   const platosPrincipalesActuales = contarPlatosPrincipales(comidasSeleccionadas)
   const esComplementoEsta = ['Puré de Papa', 'Arroz Blanco', 'Papa a la Huancaína'].includes(comida.nombre)
@@ -23,10 +26,22 @@ export default function ComidaCard({ comida }: ComidaCardProps) {
   const precioMostrar = obtenerPrecioComida(comida, habríaCombo)
 
   const handleAgregar = () => {
-    if (cantidadActual === 0) {
-      agregarComida(comida, 1)
+    // Para platos principales, validar mínimo 3 porciones
+    if (esPlatoPrincipal) {
+      if (cantidadActual === 0) {
+        // Primera vez agregando: agregar 3 porciones mínimo
+        agregarComida(comida, 3)
+      } else {
+        // Ya existe: agregar de 1 en 1
+        actualizarCantidad(comida.id, cantidadActual + 1)
+      }
     } else {
-      actualizarCantidad(comida.id, cantidadActual + 1)
+      // Para complementos: funciona normal (1 en 1)
+      if (cantidadActual === 0) {
+        agregarComida(comida, 1)
+      } else {
+        actualizarCantidad(comida.id, cantidadActual + 1)
+      }
     }
   }
 
@@ -74,12 +89,7 @@ export default function ComidaCard({ comida }: ComidaCardProps) {
         )}
       </div>
       
-      {/* Precio */}
-      <div className="mb-3 flex-shrink-0">
-        <p className="text-lg md:text-xl font-bold text-orange-600">
-          {PriceCalculator.formatearPrecio(precioMostrar)}
-        </p>
-      </div>
+      {/* Precio oculto - no mostrar en ComidaCard */}
       
       {/* Botón horizontal */}
       <div className="flex-shrink-0">
@@ -88,7 +98,7 @@ export default function ComidaCard({ comida }: ComidaCardProps) {
             onClick={handleAgregar}
             className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 cursor-pointer transform hover:scale-105"
           >
-            Agregar
+            {esPlatoPrincipal ? 'Agregar (Min. 3)' : 'Agregar'}
           </button>
         ) : (
           <div className="flex items-center bg-green-500 rounded-lg overflow-hidden animate-bounce">
