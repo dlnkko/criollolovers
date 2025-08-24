@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { usePedidosStore } from '@/store/pedidosStore'
+import type { SesionUsuario } from '@/types'
 
 interface TrackingData {
   pagina: string
@@ -127,7 +128,7 @@ export function useAbandonmentTracking() {
         .from('sesiones_usuario')
         .select('*')
         .eq('session_id', sessionIdRef.current)
-        .single()
+        .single() as { data: SesionUsuario | null, error: any }
 
       if (sesion && sesion.carrito && sesion.carrito.length > 0) {
         await supabase

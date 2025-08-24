@@ -26,12 +26,12 @@ export default function TestConnectionPage() {
         </div>
         
         <div className="mt-8 text-center">
-          <a
-            href="/"
-            className="inline-block bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-6 rounded-lg transition-colors duration-200"
+          <button
+            onClick={() => window.location.href = '/'}
+            className="inline-block bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-6 rounded-lg transition-colors duration-200 cursor-pointer"
           >
             ← Volver al inicio
-          </a>
+          </button>
         </div>
       </div>
     </div>

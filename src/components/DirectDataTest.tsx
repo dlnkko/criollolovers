@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabaseClient'
 
 export default function DirectDataTest() {
   const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState<any>(null)
+  const [results, setResults] = useState<{data: any[] | null, error: any} | null>(null)
 
   const testDirectQuery = async () => {
     setLoading(true)
@@ -23,7 +23,7 @@ export default function DirectDataTest() {
       setResults({ data, error })
     } catch (err) {
       console.error('Error en query directo:', err)
-      setResults({ data: null, error: err })
+      setResults({ data: null, error: err as any })
     } finally {
       setLoading(false)
     }
