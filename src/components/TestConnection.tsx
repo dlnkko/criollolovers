@@ -8,8 +8,8 @@ import { obtenerPrecioPrincipal } from '@/lib/supabaseClient'
 
 export default function TestConnection() {
   const [connectionStatus, setConnectionStatus] = useState<'loading' | 'connected' | 'error'>('loading')
-  const [comidas, setComidas] = useState<any[]>([])
-  const [estadisticas, setEstadisticas] = useState<any>(null)
+  const [comidas, setComidas] = useState<unknown[]>([])
+  const [estadisticas, setEstadisticas] = useState<unknown>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -43,9 +43,9 @@ export default function TestConnection() {
       setConnectionStatus('connected')
       console.log('✅ Todas las pruebas pasaron exitosamente!')
       
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('❌ Error en las pruebas:', err)
-      setError(err.message || 'Error de conexión')
+      setError(err instanceof Error ? err.message : 'Error de conexión')
       setConnectionStatus('error')
     }
   }

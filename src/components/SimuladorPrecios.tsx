@@ -8,7 +8,7 @@ interface SimuladorPreciosProps {
 }
 
 export default function SimuladorPrecios({ mostrarEnResumen = false }: SimuladorPreciosProps) {
-  const { comidasSeleccionadas, fechaSeleccionada, horarioSeleccionado, total } = usePedidosStore()
+  const { comidasSeleccionadas, total } = usePedidosStore()
 
   if (comidasSeleccionadas.length === 0) {
     return null

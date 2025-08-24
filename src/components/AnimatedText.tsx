@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 
 interface AnimatedTextProps {
   words: string[]
-  interval?: number
   className?: string
   typeSpeed?: number
   deleteSpeed?: number
@@ -13,11 +12,10 @@ interface AnimatedTextProps {
 
 export default function AnimatedText({ 
   words, 
-  interval = 3000, 
   className = '',
   typeSpeed = 100,
   deleteSpeed = 50,
-  pauseTime = 1000
+  pauseTime = 1000 
 }: AnimatedTextProps) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
   const [currentText, setCurrentText] = useState('')

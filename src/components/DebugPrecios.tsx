@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 
 export default function DebugPrecios() {
-  const [rawData, setRawData] = useState<any>(null)
+  const [rawData, setRawData] = useState<unknown>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -42,9 +42,9 @@ export default function DebugPrecios() {
         console.log('  - Precio principal:', comida.precio1 || comida.precio2 || comida.costo || 0)
       })
 
-    } catch (err: any) {
+          } catch (err: unknown) {
       console.error('❌ Error en debug:', err)
-      setError(`Error general: ${err.message}`)
+      setError(`Error general: ${err instanceof Error ? err.message : 'Error desconocido'}`)
     }
   }
 
@@ -75,34 +75,34 @@ export default function DebugPrecios() {
           </pre>
 
           <h3 className="text-lg font-semibold">🧪 Análisis por comida:</h3>
-          {rawData.map((comida: any, index: number) => (
+          {(rawData as any[]).map((comida: any, index: number) => (
             <div key={index} className="border border-gray-300 p-4 rounded">
               <h4 className="font-medium text-lg mb-2">
-                {comida.nombre || 'Sin nombre'}
+                {comida?.nombre || 'Sin nombre'}
               </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <span className="font-medium">Precio1:</span><br />
                   <code className="bg-gray-200 px-2 py-1 rounded">
-                    {JSON.stringify(comida.precio1)} ({typeof comida.precio1})
+                    {JSON.stringify(comida?.precio1)} ({typeof comida?.precio1})
                   </code>
                 </div>
                 <div>
                   <span className="font-medium">Precio2:</span><br />
                   <code className="bg-gray-200 px-2 py-1 rounded">
-                    {JSON.stringify(comida.precio2)} ({typeof comida.precio2})
+                    {JSON.stringify(comida?.precio2)} ({typeof comida?.precio2})
                   </code>
                 </div>
                 <div>
                   <span className="font-medium">Costo:</span><br />
                   <code className="bg-gray-200 px-2 py-1 rounded">
-                    {JSON.stringify(comida.costo)} ({typeof comida.costo})
+                    {JSON.stringify(comida?.costo)} ({typeof comida?.costo})
                   </code>
                 </div>
                 <div>
                   <span className="font-medium">Precio principal:</span><br />
                   <code className="bg-green-200 px-2 py-1 rounded">
-                    {comida.precio1 || comida.precio2 || comida.costo || 0}
+                    {comida?.precio1 || comida?.precio2 || comida?.costo || 0}
                   </code>
                 </div>
                 <div>
@@ -111,7 +111,7 @@ export default function DebugPrecios() {
                     {new Intl.NumberFormat('es-PE', {
                       style: 'currency',
                       currency: 'PEN'
-                    }).format(comida.precio1 || comida.precio2 || comida.costo || 0)}
+                    }).format(comida?.precio1 || comida?.precio2 || comida?.costo || 0)}
                   </code>
                 </div>
               </div>
@@ -125,7 +125,7 @@ export default function DebugPrecios() {
         <ol className="list-decimal list-inside space-y-1 mt-2">
           <li>Abre las herramientas de desarrollador (F12)</li>
           <li>Ve a la pestaña Console</li>
-          <li>Haz clic en "Volver a debuggear"</li>
+          <li>Haz clic en &quot;Volver a debuggear&quot;</li>
           <li>Revisa los logs en la consola para más detalles</li>
         </ol>
       </div>

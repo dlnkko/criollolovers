@@ -2,7 +2,6 @@ import { create } from 'zustand'
 import { 
   Comida, 
   ComidaSeleccionada, 
-  obtenerPrecioPrincipal,
   contarPlatosPrincipales,
   obtenerPrecioComida
 } from '@/lib/supabaseClient'

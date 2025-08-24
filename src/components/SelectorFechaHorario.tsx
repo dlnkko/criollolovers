@@ -73,20 +73,20 @@ export default function SelectorFechaHorario() {
   
   const diasCalendario = generarCalendario(mesActual)
 
-  const formatearFecha = (fecha: Date) => {
-    return fecha.toLocaleDateString('es-PE', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric'
-    })
-  }
+  // const formatearFecha = (fecha: Date) => {
+  //   return fecha.toLocaleDateString('es-PE', {
+  //     weekday: 'long',
+  //     month: 'long',
+  //     day: 'numeric'
+  //   })
+  // }
 
-  const formatearFechaCorta = (fecha: Date) => {
-    return fecha.toLocaleDateString('es-PE', {
-      month: 'short',
-      day: 'numeric'
-    })
-  }
+  // const formatearFechaCorta = (fecha: Date) => {
+  //   return fecha.toLocaleDateString('es-PE', {
+  //     month: 'short',
+  //     day: 'numeric'
+  //   })
+  // }
 
   return (
     <div className="space-y-6">

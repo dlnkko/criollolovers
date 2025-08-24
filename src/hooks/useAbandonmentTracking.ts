@@ -8,7 +8,7 @@ import type { SesionUsuario } from '@/types'
 interface TrackingData {
   pagina: string
   paso: 'seleccion' | 'fecha-horario' | 'resumen' | 'pago'
-  carrito?: any[]
+  carrito?: unknown[]
   total?: number
 }
 
@@ -171,7 +171,7 @@ export function useAbandonmentTracking() {
       window.removeEventListener('beforeunload', handleBeforeUnload)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
-  }, [])
+  }, [markAbandonment])
 
   return {
     trackActivity,

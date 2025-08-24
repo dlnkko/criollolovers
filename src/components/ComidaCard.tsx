@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Comida, obtenerPrecioPrincipal, obtenerPrecioComida, contarPlatosPrincipales } from '@/lib/supabaseClient'
+import { Comida, obtenerPrecioComida, contarPlatosPrincipales } from '@/lib/supabaseClient'
 import { PriceCalculator } from '@/utils/priceCalculator'
 import { usePedidosStore } from '@/store/pedidosStore'
 

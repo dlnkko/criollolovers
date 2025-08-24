@@ -1,7 +1,7 @@
 'use client'
 
 import { usePedidosStore } from '@/store/pedidosStore'
-import { ComidaSeleccionada, obtenerPrecioPrincipal, obtenerPrecioComida, contarPlatosPrincipales } from '@/lib/supabaseClient'
+import { ComidaSeleccionada } from '@/lib/supabaseClient'
 import { PriceCalculator } from '@/utils/priceCalculator'
 
 interface SelectorCantidadProps {
@@ -9,7 +9,7 @@ interface SelectorCantidadProps {
 }
 
 export default function SelectorCantidad({ comidaSeleccionada }: SelectorCantidadProps) {
-  const { actualizarCantidad, removerComida, comidasSeleccionadas } = usePedidosStore()
+  const { actualizarCantidad, removerComida } = usePedidosStore()
   
   // Calcular precio unitario actual (ya incluye la lógica de combo)
   const precioUnitario = comidaSeleccionada.subtotal / comidaSeleccionada.cantidad
