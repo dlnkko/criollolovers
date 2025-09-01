@@ -130,7 +130,8 @@ export default function SelectorFechaHorario() {
             {/* Días del calendario */}
             <div className="grid grid-cols-7 gap-1">
               {diasCalendario.map((dia, index) => {
-                const fechaString = dia.fecha.toISOString().split('T')[0]
+                // Usar formato YYYY-MM-DD sin problemas de zona horaria
+                const fechaString = `${dia.fecha.getFullYear()}-${String(dia.fecha.getMonth() + 1).padStart(2, '0')}-${String(dia.fecha.getDate()).padStart(2, '0')}`
                 const esDisponible = esFechaDisponible(dia.fecha)
                 const esSeleccionado = fechaSeleccionada === fechaString
                 
@@ -193,22 +194,6 @@ export default function SelectorFechaHorario() {
           ))}
         </div>
       </div>
-
-      {/* Información adicional */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <div className="flex items-start space-x-3">
-          <div className="text-blue-600 text-lg">ℹ️</div>
-          <div className="text-blue-800">
-            <p className="font-medium mb-1">Información importante:</p>
-            <ul className="text-sm space-y-1">
-              <li>• Los pedidos se preparan el mismo día de la entrega</li>
-              <li>• Horario de entrega: 12:00 PM (almuerzo) o 5:00 PM (cena)</li>
-              <li>• Puedes cancelar hasta 2 horas antes de la entrega</li>
-              <li>• Entregas solo en Lima Metropolitana</li>
-            </ul>
-          </div>
-        </div>
       </div>
-    </div>
   )
 }

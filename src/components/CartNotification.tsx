@@ -4,7 +4,11 @@ import { useState, useEffect } from 'react'
 import { usePedidosStore } from '@/store/pedidosStore'
 import { PriceCalculator } from '@/utils/priceCalculator'
 
-export default function CartNotification() {
+interface CartNotificationProps {
+  pasoActual?: 'seleccion' | 'fecha-horario' | 'resumen' | 'pago'
+}
+
+export default function CartNotification({ pasoActual = 'seleccion' }: CartNotificationProps) {
   const { comidasSeleccionadas, total } = usePedidosStore()
   const [showNotification, setShowNotification] = useState(false)
   const [previousCount, setPreviousCount] = useState(0)
@@ -29,7 +33,8 @@ export default function CartNotification() {
     setShowNotification(false)
   }
 
-  if (currentCount === 0) return null
+  // Solo mostrar en la pestaña de selección
+  if (currentCount === 0 || pasoActual !== 'seleccion') return null
 
   return (
     <>

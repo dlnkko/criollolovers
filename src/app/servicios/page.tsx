@@ -7,8 +7,8 @@ import AnimatedText from '@/components/AnimatedText'
 export default function ServiciosPage() {
   const router = useRouter()
 
-  const handleCrearCuenta = () => {
-    router.push('/signin')
+  const handleCrearPedido = () => {
+    router.push('/crear-pedido')
   }
 
   return (
@@ -22,22 +22,16 @@ export default function ServiciosPage() {
                 <span className="text-white text-xl font-bold">🍽️</span>
               </div>
               <h1 className="text-2xl font-bold text-gray-800">
-                Criollo Fuckers
+                Criollo Lovers
               </h1>
             </Link>
             
             <div className="flex items-center space-x-4">
               <button
-                onClick={() => router.push('/login')}
-                className="text-gray-600 hover:text-gray-800 transition-colors duration-200"
-              >
-                Iniciar Sesión
-              </button>
-              <button
-                onClick={handleCrearCuenta}
+                onClick={handleCrearPedido}
                 className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
               >
-                Crear Cuenta
+                Crear Pedido
               </button>
             </div>
           </div>
@@ -50,7 +44,7 @@ export default function ServiciosPage() {
           <h2 className="text-5xl font-bold text-gray-800 mb-6">
             🎯 ¿Cómo funciona
             <br />
-            <span className="text-orange-600">Criollo Fuckers?</span>
+            <span className="text-orange-600">Criollo Lovers?</span>
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
             El sabor de la tradición{' '}
@@ -292,10 +286,10 @@ export default function ServiciosPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
-                onClick={handleCrearCuenta}
+                onClick={handleCrearPedido}
                 className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
-                🚀 Crear cuenta y comenzar
+                🚀 Crear pedido ahora
               </button>
               <Link
                 href="/landing"
@@ -312,7 +306,7 @@ export default function ServiciosPage() {
       <div className="bg-gray-800 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-300">
-            © 2024 Criollo Fuckers. Todos los derechos reservados.
+            © 2024 Criollo Lovers. Todos los derechos reservados.
           </p>
           <p className="text-gray-400 text-sm mt-2">
             Comida criolla auténtica, entregada con amor ❤️

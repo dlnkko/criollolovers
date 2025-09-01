@@ -131,23 +131,67 @@ export default function ListaComidas() {
         </div>
       </div>
 
-      {/* Complementos - Grid tradicional */}
+      {/* Complementos - Carrusel Horizontal */}
       {complementos.length > 0 && (
         <div>
-          <div className="flex items-center mb-3 md:mb-4">
-            <h3 className="text-lg md:text-xl font-bold text-gray-800 flex items-center">
-              <span className="text-xl md:text-2xl mr-2">🥗</span>
-              Complementos
-            </h3>
-            <div className="ml-2 md:ml-3 bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">
-              <span className="hidden md:inline">{complementos.length} opciones</span>
-              <span className="md:hidden">{complementos.length}</span>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center">
+              <h3 className="text-lg md:text-xl font-bold text-gray-800 flex items-center">
+                <span className="text-xl md:text-2xl mr-2">🥗</span>
+                <span className="hidden md:inline">Complementos</span>
+                <span className="md:hidden">Complementos</span>
+              </h3>
+              <div className="ml-2 md:ml-3 bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">
+                <span className="hidden md:inline">{complementos.length} opciones</span>
+                <span className="md:hidden">{complementos.length}</span>
+              </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {complementos.map((comida) => (
-              <ComidaCard key={comida.id} comida={comida} />
-            ))}
+          
+          <div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => {
+                  const container = document.getElementById('carousel-complementos')
+                  if (container) container.scrollLeft -= 200
+                }}
+                className="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 cursor-pointer transform hover:scale-110"
+              >
+                ←
+              </button>
+              <button 
+                onClick={() => {
+                  const container = document.getElementById('carousel-complementos')
+                  if (container) container.scrollLeft += 200
+                }}
+                className="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 cursor-pointer transform hover:scale-110"
+              >
+                →
+              </button>
+            </div>
+          </div>
+          
+          {/* Carrusel horizontal */}
+          <div className="relative">
+            <div 
+              id="carousel-complementos"
+              className="carousel-scroll overflow-x-auto pb-4"
+              style={{ scrollBehavior: 'smooth' }}
+            >
+              <div className="flex space-x-3 md:space-x-4" style={{ width: 'max-content' }}>
+                {complementos.map((comida) => (
+                  <div 
+                    key={comida.id} 
+                    className="flex-shrink-0 w-52 md:w-60"
+                  >
+                    <ComidaCard comida={comida} />
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Gradiente fade al final */}
+            <div className="absolute top-0 right-0 w-6 h-full bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
           </div>
         </div>
       )}

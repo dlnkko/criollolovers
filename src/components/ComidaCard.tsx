@@ -50,7 +50,7 @@ export default function ComidaCard({ comida }: ComidaCardProps) {
       cantidadActual > 0
         ? 'border-orange-500 bg-orange-50 shadow-xl'
         : 'border-gray-200 hover:border-orange-200 hover:shadow-md hover:scale-102'
-    } shadow-sm p-3 md:p-4 w-full h-72 md:h-80 flex flex-col overflow-hidden`}>
+    } shadow-sm p-3 md:p-4 w-full h-56 md:h-60 flex flex-col overflow-hidden`}>
       
       {/* Imagen */}
       <div className="relative mb-3 flex-shrink-0">
@@ -71,23 +71,11 @@ export default function ComidaCard({ comida }: ComidaCardProps) {
       
       {/* Nombre */}
       <div className="mb-2 flex-shrink-0">
-        <h3 className="font-bold text-gray-800 text-sm md:text-base leading-tight">
+        <h3 className="font-bold text-gray-800 text-base md:text-lg leading-tight text-center">
           {comida.nombre}
         </h3>
       </div>
       
-      {/* Descripción */}
-      <div className="flex-grow overflow-hidden mb-4">
-        {comida.descripcion ? (
-          <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
-            {comida.descripcion}
-          </p>
-        ) : (
-          <p className="text-xs text-gray-500 italic">
-            Sin descripción disponible
-          </p>
-        )}
-      </div>
       
       {/* Precio oculto - no mostrar en ComidaCard */}
       
@@ -96,12 +84,12 @@ export default function ComidaCard({ comida }: ComidaCardProps) {
         {cantidadActual === 0 ? (
           <button
             onClick={handleAgregar}
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 cursor-pointer transform hover:scale-105"
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 cursor-pointer transform hover:scale-105 mt-4"
           >
-            {esPlatoPrincipal ? 'Agregar (Min. 3)' : 'Agregar'}
+            {esPlatoPrincipal ? 'Agregar' : 'Agregar'}
           </button>
         ) : (
-          <div className="flex items-center bg-green-500 rounded-lg overflow-hidden animate-bounce">
+          <div className="w-full mt-4 flex items-center bg-green-500 rounded-lg overflow-hidden animate-bounce">
             <div className="flex-1 bg-green-500 text-white font-semibold py-3 px-4 text-center">
               Agregado ({cantidadActual})
             </div>

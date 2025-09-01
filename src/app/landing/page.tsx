@@ -6,8 +6,8 @@ import AnimatedText from '@/components/AnimatedText'
 export default function LandingPage() {
   const router = useRouter()
 
-  const handleCrearCuenta = () => {
-    router.push('/signin')
+  const handleCrearPedido = () => {
+    router.push('/crear-pedido')
   }
 
   const handleComoFunciona = () => {
@@ -31,16 +31,10 @@ export default function LandingPage() {
             
             <div className="flex items-center space-x-2 md:space-x-4">
               <button
-                onClick={() => router.push('/login')}
-                className="text-gray-600 hover:text-gray-800 transition-colors duration-200 cursor-pointer text-sm md:text-base px-2 md:px-0"
-              >
-                Iniciar Sesión
-              </button>
-              <button
-                onClick={handleCrearCuenta}
+                onClick={handleCrearPedido}
                 className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg transition-colors duration-200 cursor-pointer text-sm md:text-base"
               >
-                Crear Cuenta
+                Crear Pedido
               </button>
             </div>
           </div>
@@ -68,18 +62,12 @@ export default function LandingPage() {
           Lleva lo mejor de la cocina peruana a tu mesa, fácil, rico y en porciones que sí alcanzan.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4">
+          <div className="flex justify-center px-4">
             <button
-              onClick={handleCrearCuenta}
+              onClick={handleCrearPedido}
               className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 md:py-4 md:px-8 rounded-xl text-base md:text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 cursor-pointer"
             >
               🚀 Crear mi primer pedido
-            </button>
-            <button
-              onClick={() => router.push('/login')}
-              className="bg-white hover:bg-gray-50 text-gray-800 font-bold py-3 px-6 md:py-4 md:px-8 rounded-xl text-base md:text-lg transition-all duration-200 shadow-lg hover:shadow-xl border-2 border-gray-200 hover:border-gray-300 cursor-pointer"
-            >
-              👋 Iniciar Sesión
             </button>
           </div>
         </div>
@@ -134,10 +122,10 @@ export default function LandingPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
               <button
-                onClick={handleCrearCuenta}
+                onClick={handleCrearPedido}
                 className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl cursor-pointer text-sm md:text-base"
               >
-                Crear cuenta gratis
+                Crear pedido ahora
               </button>
               <button
                 onClick={handleComoFunciona}

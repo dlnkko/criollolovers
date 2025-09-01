@@ -3,13 +3,13 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { usePedidosStore } from '@/store/pedidosStore'
+import { PriceCalculator } from '@/utils/priceCalculator'
 import ListaComidas from './ListaComidas'
 import SelectorCantidad from './SelectorCantidad'
 import SelectorFechaHorario from './SelectorFechaHorario'
 import SimuladorPrecios from './SimuladorPrecios'
 import ResumenPedido from './ResumenPedido'
 import { useAbandonmentTracking } from '@/hooks/useAbandonmentTracking'
-import PagoWhop from './PagoWhop'
 import CartNotification from './CartNotification'
 
 
@@ -17,7 +17,6 @@ type Paso = 'seleccion' | 'fecha-horario' | 'resumen' | 'pago'
 
 export default function CrearPedido() {
   const [pasoActual, setPasoActual] = useState<Paso>('seleccion')
-  const [mostrarPago, setMostrarPago] = useState(false)
   
   const router = useRouter()
   const { comidasSeleccionadas, fechaSeleccionada, horarioSeleccionado, total } = usePedidosStore()
@@ -28,11 +27,9 @@ export default function CrearPedido() {
     const handlePopState = (event: PopStateEvent) => {
       if (event.state?.paso) {
         setPasoActual(event.state.paso)
-        setMostrarPago(false)
       } else {
         // Si no hay estado, volver al inicio
         setPasoActual('seleccion')
-        setMostrarPago(false)
       }
     }
 
@@ -82,7 +79,7 @@ export default function CrearPedido() {
         setPasoActual('resumen')
         break
       case 'resumen':
-        setMostrarPago(true)
+        // El resumen es el paso final, no hay más pasos
         break
     }
   }
@@ -99,33 +96,45 @@ export default function CrearPedido() {
   }
 
   const handleConfirmarPedido = () => {
-    setMostrarPago(true)
+    // Crear mensaje para WhatsApp
+    const formatearFecha = (fecha: string) => {
+      const [year, month, day] = fecha.split('-').map(Number)
+      const fechaObj = new Date(year, month - 1, day)
+      return fechaObj.toLocaleDateString('es-PE', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+    }
+
+    const mensaje = `🍽️ *NUEVO PEDIDO - Criollo Lovers*
+
+📋 *Resumen del pedido:*
+${comidasSeleccionadas.map(item => 
+  `• ${item.comida.nombre} x${item.cantidad} - ${PriceCalculator.formatearPrecio(item.subtotal)}`
+).join('\n')}
+
+💰 *Total: ${PriceCalculator.formatearPrecio(total)}*
+
+📅 *Fecha de entrega:* ${formatearFecha(fechaSeleccionada!)}
+🕐 *Horario de entrega:* ${horarioSeleccionado}
+
+¡Gracias por tu pedido! 🎉`
+
+    // Codificar el mensaje para URL
+    const mensajeCodificado = encodeURIComponent(mensaje)
+    
+    // Redirigir a WhatsApp
+    window.open(`https://wa.me/923197090?text=${mensajeCodificado}`, '_blank')
   }
 
   const handleEditarPedido = () => {
     setPasoActual('seleccion')
   }
 
-  const handlePagoExitoso = () => {
-    // Redirigir a mis pedidos o mostrar confirmación
-    router.push('/mis-pedidos?status=success')
-  }
-
-  const handlePagoCancelado = () => {
-    setMostrarPago(false)
-  }
-
   const handleVolverInicio = () => {
-    router.push('/onboarding')
-  }
-
-  if (mostrarPago) {
-    return (
-      <PagoWhop
-        onPagoExitoso={handlePagoExitoso}
-        onPagoCancelado={handlePagoCancelado}
-      />
-    )
+    router.push('/landing')
   }
 
   return (
@@ -239,8 +248,10 @@ export default function CrearPedido() {
                 </div>
               )}
 
-              {/* Simulador de precios */}
-              <SimuladorPrecios mostrarEnResumen={pasoActual === 'resumen'} />
+              {/* Simulador de precios con información de entrega - Primero en mobile */}
+              <div className="order-first md:order-last">
+                <SimuladorPrecios mostrarEnResumen={pasoActual === 'resumen'} pasoActual={pasoActual} />
+              </div>
 
               {/* Navegación entre pasos */}
               {pasoActual !== 'resumen' && (
@@ -249,7 +260,7 @@ export default function CrearPedido() {
                     <button
                       onClick={siguientePaso}
                       disabled={!puedeAvanzar()}
-                      className="w-full bg-amber-100 hover:bg-amber-200 disabled:bg-amber-50 text-amber-800 font-semibold py-3 px-4 md:px-6 rounded-lg transition-colors duration-200 disabled:cursor-not-allowed text-sm md:text-base"
+                      className="w-full bg-amber-300 hover:bg-amber-400 disabled:bg-amber-50 text-amber-800 font-bold py-4 px-6 md:px-8 rounded-lg transition-colors duration-200 disabled:cursor-not-allowed text-base md:text-lg"
                     >
                       <span className="hidden md:inline">
                         {pasoActual === 'seleccion' ? 'Continuar a Fecha y Horario' :
@@ -263,7 +274,7 @@ export default function CrearPedido() {
                     {pasoActual !== 'seleccion' && (
                       <button
                         onClick={pasoAnterior}
-                        className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-4 md:px-6 rounded-lg transition-colors duration-200 border-2 border-gray-200 hover:border-gray-300 text-sm md:text-base"
+                        className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 md:px-8 rounded-lg transition-colors duration-200 border-2 border-gray-200 hover:border-gray-300 text-base md:text-lg"
                       >
                         <span className="hidden md:inline">Paso Anterior</span>
                         <span className="md:hidden">Anterior</span>
@@ -277,8 +288,8 @@ export default function CrearPedido() {
         </div>
       </div>
       
-      {/* Cart Notification for Mobile */}
-      <CartNotification />
+             {/* Cart Notification for Mobile */}
+       <CartNotification pasoActual={pasoActual} />
     </div>
   )
 }

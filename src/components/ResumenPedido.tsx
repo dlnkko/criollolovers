@@ -33,7 +33,15 @@ export default function ResumenPedido({ onConfirmar, onEditar }: ResumenPedidoPr
           {comidasSeleccionadas.map((comidaSeleccionada, index) => (
             <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
               <div className="flex items-center space-x-3">
-                <span className="text-2xl">🍽️</span>
+                {comidaSeleccionada.comida.imagen ? (
+                  <img 
+                    src={comidaSeleccionada.comida.imagen} 
+                    alt={comidaSeleccionada.comida.nombre}
+                    className="w-12 h-12 object-cover rounded-lg"
+                  />
+                ) : (
+                  <span className="text-2xl">🍽️</span>
+                )}
                 <div>
                   <p className="font-medium text-gray-800">{comidaSeleccionada.comida.nombre}</p>
                   <p className="text-sm text-gray-600">
@@ -97,21 +105,7 @@ export default function ResumenPedido({ onConfirmar, onEditar }: ResumenPedidoPr
 
 
 
-      {/* Información adicional */}
-      <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-        <div className="flex items-start space-x-3">
-          <div className="text-amber-600 text-lg">ℹ️</div>
-          <div className="text-amber-800">
-            <p className="font-medium mb-2">Información importante:</p>
-            <ul className="text-sm space-y-1">
-              <li>• Tu pedido será preparado el mismo día de la entrega</li>
-              <li>• Recibirás una confirmación por email</li>
-              <li>• Puedes cancelar hasta 2 horas antes de la entrega</li>
-              <li>• El pago se procesa de forma segura</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      
 
       {/* Botones de acción */}
       <div className="flex flex-col sm:flex-row gap-3">
@@ -124,9 +118,9 @@ export default function ResumenPedido({ onConfirmar, onEditar }: ResumenPedidoPr
         
         <button
           onClick={onConfirmar}
-          className="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+          className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
         >
-          💳 Proceder al pago
+          📱 Confirmar pedido
         </button>
       </div>
     </div>

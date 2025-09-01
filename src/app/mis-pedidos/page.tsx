@@ -27,10 +27,8 @@ function MisPedidosContent() {
   const cargarPedidos = async () => {
     try {
       setLoading(true)
-      // En producción, aquí obtendrías el ID del usuario autenticado
-      const usuarioId = 'usuario-ejemplo'
-      const data = await PedidosService.obtenerPedidosUsuario(usuarioId)
-      setPedidos(data)
+      // Sin autenticación, siempre mostrar que no hay pedidos
+      setPedidos([])
     } catch (err) {
       setError('Error cargando pedidos')
       console.error(err)
@@ -44,7 +42,7 @@ function MisPedidosContent() {
   }
 
   const handleVolverInicio = () => {
-    router.push('/onboarding')
+    router.push('/landing')
   }
 
   const getEstadoColor = (estado: Pedido['estado']) => {

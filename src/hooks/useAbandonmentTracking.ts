@@ -58,7 +58,6 @@ export function useAbandonmentTracking() {
   // Función para trackear actividad
   const trackActivity = async (data: TrackingData) => {
     try {
-      const { data: user } = await supabase.auth.getUser()
       const { dispositivo, navegador } = getDeviceInfo()
       const utmParams = getUTMParams()
 
@@ -67,8 +66,7 @@ export function useAbandonmentTracking() {
         pagina: data.pagina,
         paso: data.paso,
         carrito: data.carrito || comidasSeleccionadas,
-        total: data.total || total,
-        usuario: user.user?.id
+        total: data.total || total
       })
 
       // Primero intentar actualizar si existe
@@ -83,7 +81,7 @@ export function useAbandonmentTracking() {
         await supabase
           .from('sesiones_usuario')
           .update({
-            usuario_id: user.user?.id || null,
+            usuario_id: null,
             pagina_actual: data.pagina,
             paso_actual: data.paso,
             carrito: data.carrito || comidasSeleccionadas,
@@ -99,7 +97,7 @@ export function useAbandonmentTracking() {
         await supabase
           .from('sesiones_usuario')
           .insert({
-            usuario_id: user.user?.id || null,
+            usuario_id: null,
             session_id: sessionIdRef.current,
             pagina_actual: data.pagina,
             paso_actual: data.paso,
@@ -119,7 +117,6 @@ export function useAbandonmentTracking() {
   // Función para marcar abandono manual
   const markAbandonment = async (motivo: string = 'navegacion') => {
     try {
-      const { data: user } = await supabase.auth.getUser()
       const { dispositivo, navegador } = getDeviceInfo()
       const utmParams = getUTMParams()
 
@@ -134,7 +131,7 @@ export function useAbandonmentTracking() {
         await supabase
           .from('pedidos_abandonados')
           .insert({
-            usuario_id: user.user?.id || null,
+            usuario_id: null,
             session_id: sessionIdRef.current,
             carrito: sesion.carrito,
             total: sesion.total,
