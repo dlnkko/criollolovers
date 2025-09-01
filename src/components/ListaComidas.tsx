@@ -84,7 +84,7 @@ export default function ListaComidas() {
           </p>
         </div>
         
-        <div>
+        <div className="hidden md:block">
           <div className="flex items-center gap-2">
             <button 
               onClick={() => {
@@ -148,7 +148,7 @@ export default function ListaComidas() {
             </div>
           </div>
           
-          <div>
+          <div className="hidden md:block">
             <div className="flex items-center gap-2">
               <button 
                 onClick={() => {

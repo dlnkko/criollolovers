@@ -89,13 +89,13 @@ export default function ComidaCard({ comida }: ComidaCardProps) {
             {esPlatoPrincipal ? 'Agregar' : 'Agregar'}
           </button>
         ) : (
-          <div className="w-full mt-4 flex items-center bg-green-500 rounded-lg overflow-hidden animate-bounce">
-            <div className="flex-1 bg-green-500 text-white font-semibold py-3 px-4 text-center">
+          <div className="w-full mt-4 flex items-center bg-green-500 rounded-lg overflow-hidden">
+            <div className="flex-1 bg-green-500 text-white font-semibold py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">
               Agregado ({cantidadActual})
             </div>
             <button
               onClick={handleAgregar}
-              className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 transition-all duration-300 cursor-pointer transform hover:scale-110 animate-pulse"
+              className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 md:py-3 px-2 md:px-4 transition-all duration-300 cursor-pointer transform hover:scale-110 text-sm md:text-base"
             >
               +1
             </button>
