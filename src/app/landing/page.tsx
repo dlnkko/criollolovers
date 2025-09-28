@@ -16,122 +16,135 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 md:h-16">
-            <div className="flex items-center space-x-2 md:space-x-3">
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-orange-600 rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg md:text-xl font-bold">🍽️</span>
-              </div>
-              <h1 className="text-lg md:text-2xl font-bold text-gray-800">
-                Criollo Lovers
+
+      {/* Hero Section con imagen principal */}
+      <div className="relative overflow-hidden">
+        {/* Imagen de fondo principal */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://pkvkylkpgcqldzfbcwov.supabase.co/storage/v1/object/public/comidas/criollomierda.jpg"
+            alt="Comida criolla peruana"
+            className="w-full h-[100vh] object-cover"
+          />
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+
+        {/* Contenido centrado sobre la imagen */}
+        <div className="relative z-10 h-[100vh] flex items-center justify-center">
+          <div className="text-center text-white px-4 max-w-4xl mx-auto">
+            {/* Logo y nombre */}
+            <div className="mb-8">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-4 tracking-tight" style={{textShadow: '3px 3px 10px rgba(0,0,0,0.9)', fontFamily: 'Arial Black, sans-serif'}}>
+                CRIOLLO LOVERS
               </h1>
+              <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-orange-300 mb-2" style={{textShadow: '2px 2px 6px rgba(0,0,0,0.8)', fontFamily: 'Arial, sans-serif'}}>
+                El sabor de la tradición
+                <br />
+                <span className="text-orange-400">
+                  directo a tu{' '}
+                  <AnimatedText 
+                    words={[ 'hogar', 'empresa', 'evento']} 
+                    typeSpeed={80}
+                    deleteSpeed={40}
+                    pauseTime={1200}
+                    className="text-orange-400"
+                  />
+                </span>
+              </div>
             </div>
-            
-            <div className="flex items-center space-x-2 md:space-x-4">
+
+            {/* Botones originales */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={handleCrearPedido}
-                className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg transition-colors duration-200 cursor-pointer text-sm md:text-base"
+                className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-200 shadow-2xl hover:shadow-orange-500/25 transform hover:scale-105 cursor-pointer animate-pulse hover:animate-none"
+                style={{fontFamily: 'Arial, sans-serif', fontWeight: '700'}}
               >
-                Crear Pedido
+                🚀 Crear mi primer pedido
               </button>
+              <button
+                onClick={handleComoFunciona}
+                className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-200 border-2 border-white/30 hover:border-white/50 cursor-pointer hover:scale-105"
+                style={{fontFamily: 'Arial, sans-serif', fontWeight: '700'}}
+              >
+                Conocer más
+              </button>
+            </div>
+
+            {/* Indicadores de carrusel */}
+            <div className="flex justify-center mt-8 space-x-2">
+              <div className="w-2 h-2 bg-white rounded-full"></div>
+              <div className="w-2 h-2 bg-white rounded-full"></div>
+              <div className="w-2 h-2 bg-white/50 rounded-full"></div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-4 md:mb-6 leading-tight">
-            El sabor de la tradición
-            <br />
-            <span className="text-orange-600">
-              directo a tu{' '}
-              <AnimatedText 
-                words={[ 'hogar', 'empresa', 'evento']} 
-                typeSpeed={80}
-                deleteSpeed={40}
-                pauseTime={1200}
-                className="text-orange-600"
-              />
-            </span>
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 max-w-3xl mx-auto px-4">
-          Lleva lo mejor de la cocina peruana a tu mesa, fácil, rico y en porciones que sí alcanzan.
-          </p>
-          
-          <div className="flex justify-center px-4">
-            <button
-              onClick={handleCrearPedido}
-              className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 md:py-4 md:px-8 rounded-xl text-base md:text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 cursor-pointer"
-            >
-              🚀 Crear mi primer pedido
-            </button>
+      {/* Características principales */}
+      <div className="bg-gray-50 py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 animate-fade-in-up" style={{fontFamily: 'Arial Black, sans-serif'}}>
+              ¿Por qué elegirnos?
+            </h3>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto animate-fade-in-up" style={{animationDelay: '0.2s', fontFamily: 'Arial, sans-serif'}}>
+              Ofrecemos la mejor experiencia en comida criolla peruana
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
+            <div className="bg-white rounded-2xl shadow-lg p-8 text-center group hover:shadow-xl transition-all duration-300 animate-slide-in-left" style={{animationDelay: '0.3s'}}>
+              <div className="w-20 h-20 md:w-24 md:h-24 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-200 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
+                <span className="text-3xl md:text-4xl animate-bounce group-hover:animate-spin">🚚</span>
+              </div>
+              <h4 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 group-hover:text-orange-600 transition-colors duration-300" style={{fontFamily: 'Arial Black, sans-serif'}}>
+                Entrega rápida
+              </h4>
+              <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300" style={{fontFamily: 'Arial, sans-serif'}}>
+                Entregamos los pedidos de manera puntual dentro del rango pactado con la máxima frescura y calidad posible.
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-2xl shadow-lg p-8 text-center group hover:shadow-xl transition-all duration-300 animate-slide-in-right" style={{animationDelay: '0.5s'}}>
+              <div className="w-20 h-20 md:w-24 md:h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-green-200 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
+                <span className="text-3xl md:text-4xl animate-pulse group-hover:animate-bounce">🌿</span>
+              </div>
+              <h4 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 group-hover:text-green-600 transition-colors duration-300" style={{fontFamily: 'Arial Black, sans-serif'}}>
+                Ingredientes frescos
+              </h4>
+              <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300" style={{fontFamily: 'Arial, sans-serif'}}>
+                Utilizamos solo los mejores ingredientes de temporada y proveedores locales
+              </p>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Características principales */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16 px-4">
-          <div className="text-center p-4 md:p-6">
-            <div className="w-12 h-12 md:w-16 md:h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
-              <span className="text-2xl md:text-3xl">🚚</span>
-            </div>
-            <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-2">
-              Entrega rápida
-            </h3>
-            <p className="text-sm md:text-base text-gray-600">
-              Entregamos en menos de 30 minutos en Lima Metropolitana
-            </p>
-          </div>
-          
-          <div className="text-center p-4 md:p-6">
-            <div className="w-12 h-12 md:w-16 md:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
-              <span className="text-2xl md:text-3xl">🌿</span>
-            </div>
-            <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-2">
-              Ingredientes frescos
-            </h3>
-            <p className="text-sm md:text-base text-gray-600">
-              Utilizamos solo los mejores ingredientes de temporada
-            </p>
-          </div>
-          
-          <div className="text-center p-4 md:p-6">
-            <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
-              <span className="text-2xl md:text-3xl">💳</span>
-            </div>
-            <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-2">
-              Pago seguro
-            </h3>
-            <p className="text-sm md:text-base text-gray-600">
-              Pagos procesados de forma segura con Whop
-            </p>
-          </div>
-        </div>
-
-        {/* CTA Section */}
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-200 text-center">
-            <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-3 md:mb-4">
+      {/* CTA Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-r from-orange-600 to-red-600 rounded-3xl shadow-2xl p-8 md:p-12 text-center text-white animate-fade-in-up" style={{animationDelay: '0.9s'}}>
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 animate-wiggle" style={{fontFamily: 'Arial Black, sans-serif'}}>
               🎯 ¿Listo para probar la mejor comida criolla?
             </h3>
-            <p className="text-sm md:text-base text-gray-600 mb-5 md:mb-6">
-              Únete a cientos de clientes satisfechos que ya disfrutan de nuestros platos
+            <p className="text-xl text-orange-100 mb-8 max-w-2xl mx-auto animate-fade-in-up" style={{animationDelay: '1.1s', fontFamily: 'Arial, sans-serif'}}>
+              Únete a cientos de clientes satisfechos que ya disfrutan de nuestros platos auténticos
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={handleCrearPedido}
-                className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl cursor-pointer text-sm md:text-base"
+                className="bg-white text-orange-600 font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 cursor-pointer text-lg animate-pulse hover:animate-none"
+                style={{animationDelay: '1.3s', fontFamily: 'Arial, sans-serif', fontWeight: '700'}}
               >
                 Crear pedido ahora
               </button>
               <button
                 onClick={handleComoFunciona}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg transition-colors duration-200 border-2 border-gray-200 hover:border-gray-300 cursor-pointer text-sm md:text-base"
+                className="bg-orange-700 hover:bg-orange-800 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 border-2 border-orange-500 hover:border-orange-400 cursor-pointer text-lg hover:scale-105"
+                style={{animationDelay: '1.5s', fontFamily: 'Arial, sans-serif', fontWeight: '700'}}
               >
-                Conocer más
+                Ver nuestro menú
               </button>
             </div>
           </div>
@@ -139,14 +152,22 @@ export default function LandingPage() {
       </div>
 
       {/* Footer */}
-      <div className="bg-gray-800 text-white py-6 md:py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-300 text-sm md:text-base">
-            © 2024 Criollo Lovers. Todos los derechos reservados.
-          </p>
-          <p className="text-gray-400 text-xs md:text-sm mt-2">
-            Comida criolla auténtica, entregada con amor ❤️
-          </p>
+      <div className="bg-gray-900 text-white py-12 md:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="flex items-center justify-center space-x-3 mb-4 animate-float">
+              <div className="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center animate-spin" style={{animationDuration: '3s'}}>
+                <span className="text-white text-xl font-bold">🍽️</span>
+              </div>
+              <h4 className="text-2xl font-bold" style={{fontFamily: 'Arial Black, sans-serif'}}>Criollo Lovers</h4>
+            </div>
+            <p className="text-gray-300 text-lg mb-4 animate-fade-in-up" style={{animationDelay: '0.2s', fontFamily: 'Arial, sans-serif'}}>
+              © 2024 Criollo Lovers. Todos los derechos reservados.
+            </p>
+            <p className="text-gray-400 animate-fade-in-up" style={{animationDelay: '0.4s', fontFamily: 'Arial, sans-serif'}}>
+              Comida criolla auténtica, entregada con amor ❤️
+            </p>
+          </div>
         </div>
       </div>
     </div>

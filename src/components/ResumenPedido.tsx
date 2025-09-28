@@ -10,7 +10,7 @@ interface ResumenPedidoProps {
 }
 
 export default function ResumenPedido({ onConfirmar, onEditar }: ResumenPedidoProps) {
-  const { comidasSeleccionadas, fechaSeleccionada, horarioSeleccionado, total } = usePedidosStore()
+  const { comidasSeleccionadas, fechaSeleccionada, horarioSeleccionado, total, actualizarCantidad, removerComida } = usePedidosStore()
 
   const formatearFecha = (fecha: string) => {
     return new Date(fecha).toLocaleDateString('es-PE', {
@@ -19,6 +19,18 @@ export default function ResumenPedido({ onConfirmar, onEditar }: ResumenPedidoPr
       month: 'long',
       day: 'numeric'
     })
+  }
+
+  const handleCambiarCantidad = (comidaId: string, nuevaCantidad: number) => {
+    if (nuevaCantidad <= 0) {
+      removerComida(comidaId)
+    } else {
+      actualizarCantidad(comidaId, nuevaCantidad)
+    }
+  }
+
+  const handleEliminarComida = (comidaId: string) => {
+    removerComida(comidaId)
   }
 
   return (
@@ -44,18 +56,47 @@ export default function ResumenPedido({ onConfirmar, onEditar }: ResumenPedidoPr
                 )}
                 <div>
                   <p className="font-medium text-gray-800">{comidaSeleccionada.comida.nombre}</p>
-                  <p className="text-sm text-gray-600">
-                    Cantidad: {comidaSeleccionada.cantidad}
+                  <p className="text-sm text-gray-500">
+                    {PriceCalculator.formatearPrecio(obtenerPrecioPrincipal(comidaSeleccionada.comida))} c/u
                   </p>
                 </div>
               </div>
-              <div className="text-right">
-                <p className="font-semibold text-gray-800">
-                  {PriceCalculator.formatearPrecio(comidaSeleccionada.subtotal)}
-                </p>
-                <p className="text-sm text-gray-500">
-                  {PriceCalculator.formatearPrecio(obtenerPrecioPrincipal(comidaSeleccionada.comida))} c/u
-                </p>
+              
+              {/* Controles de cantidad */}
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => handleCambiarCantidad(comidaSeleccionada.comida.id, comidaSeleccionada.cantidad - 1)}
+                    className="w-8 h-8 rounded-full bg-red-100 hover:bg-red-200 text-red-600 flex items-center justify-center transition-colors duration-200"
+                  >
+                    -
+                  </button>
+                  <span className="w-8 text-center font-medium text-gray-800">
+                    {comidaSeleccionada.cantidad}
+                  </span>
+                  <button
+                    onClick={() => handleCambiarCantidad(comidaSeleccionada.comida.id, comidaSeleccionada.cantidad + 1)}
+                    className="w-8 h-8 rounded-full bg-green-100 hover:bg-green-200 text-green-600 flex items-center justify-center transition-colors duration-200"
+                  >
+                    +
+                  </button>
+                </div>
+                
+                {/* Botón eliminar */}
+                <button
+                  onClick={() => handleEliminarComida(comidaSeleccionada.comida.id)}
+                  className="w-8 h-8 rounded-full bg-gray-200 hover:bg-red-200 text-gray-600 hover:text-red-600 flex items-center justify-center transition-colors duration-200"
+                  title="Eliminar del pedido"
+                >
+                  🗑️
+                </button>
+                
+                {/* Precio total del item */}
+                <div className="text-right min-w-[80px]">
+                  <p className="font-semibold text-gray-800">
+                    {PriceCalculator.formatearPrecio(comidaSeleccionada.subtotal)}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
