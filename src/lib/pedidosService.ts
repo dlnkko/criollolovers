@@ -1,9 +1,10 @@
-import { supabase, Comida, Pedido } from './supabaseClient'
+import { supabase, Comida, Pedido, validateSupabaseConfig } from './supabaseClient'
 
 export class PedidosService {
   // Obtener todas las comidas disponibles
   static async obtenerComidas(): Promise<Comida[]> {
     try {
+      validateSupabaseConfig()
       const { data, error } = await supabase
         .from('comidas')
         .select('*')
@@ -20,6 +21,7 @@ export class PedidosService {
   // Crear un nuevo pedido
   static async crearPedido(pedido: Omit<Pedido, 'id' | 'created_at'>): Promise<Pedido | null> {
     try {
+      validateSupabaseConfig()
       const { data, error } = await supabase
         .from('pedidos')
         .insert([pedido])
@@ -37,6 +39,7 @@ export class PedidosService {
   // Obtener pedidos de un usuario
   static async obtenerPedidosUsuario(usuarioId: string): Promise<Pedido[]> {
     try {
+      validateSupabaseConfig()
       const { data, error } = await supabase
         .from('pedidos')
         .select('*')
@@ -54,6 +57,7 @@ export class PedidosService {
   // Actualizar estado de un pedido
   static async actualizarEstadoPedido(pedidoId: string, estado: Pedido['estado']): Promise<boolean> {
     try {
+      validateSupabaseConfig()
       const { error } = await supabase
         .from('pedidos')
         .update({ estado })

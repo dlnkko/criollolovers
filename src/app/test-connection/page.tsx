@@ -6,6 +6,9 @@ import DebugPrecios from '@/components/DebugPrecios'
 import DirectDataTest from '@/components/DirectDataTest'
 import PruebaPreciosDinamicos from '@/components/PruebaPreciosDinamicos'
 
+// Forzar renderizado dinámico para evitar errores de Supabase durante build
+export const dynamic = 'force-dynamic'
+
 export default function TestConnectionPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 py-8">

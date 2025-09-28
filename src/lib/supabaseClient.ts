@@ -3,18 +3,37 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-// Validar que las variables de entorno existan
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(`
+// Función para validar variables de entorno solo cuando se necesite
+function validateSupabaseConfig() {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error(`
 ❌ Missing Supabase environment variables:
 - NEXT_PUBLIC_SUPABASE_URL: ${supabaseUrl ? '✅' : '❌ Missing'}
 - NEXT_PUBLIC_SUPABASE_ANON_KEY: ${supabaseAnonKey ? '✅' : '❌ Missing'}
 
 Please add these to your .env.local file and Vercel environment variables.
-  `)
+    `)
+  }
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Crear cliente Supabase solo si las variables existen
+let supabase: any = null
+
+if (supabaseUrl && supabaseAnonKey) {
+  supabase = createClient(supabaseUrl, supabaseAnonKey)
+} else {
+  // Crear un cliente mock para evitar errores durante build
+  supabase = {
+    from: () => ({
+      select: () => Promise.resolve({ data: [], error: null }),
+      insert: () => Promise.resolve({ data: null, error: null }),
+      update: () => Promise.resolve({ data: null, error: null }),
+      delete: () => Promise.resolve({ data: null, error: null })
+    })
+  }
+}
+
+export { supabase, validateSupabaseConfig }
 
 // Tipos para la base de datos
 export interface Comida {
