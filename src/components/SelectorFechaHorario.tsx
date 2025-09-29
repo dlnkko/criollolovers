@@ -94,34 +94,36 @@ export default function SelectorFechaHorario() {
       <div>
         <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
           {/* Header del calendario */}
-          <div className="flex items-center justify-between p-4 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-800 flex items-center">
-              📅 <span className="ml-2">Calendario</span>
+          <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-800 flex items-center">
+              📅 <span className="ml-2 hidden sm:inline">Calendario</span>
             </h3>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <button
                 onClick={() => cambiarMes(-1)}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
+                className="p-2 sm:p-3 hover:bg-gray-100 rounded-full transition-colors cursor-pointer shadow-sm hover:shadow-md"
+                title="Mes anterior"
               >
-                ←
+                <span className="text-lg sm:text-xl font-bold">←</span>
               </button>
-              <h4 className="text-lg font-medium text-gray-700 min-w-[140px] text-center">
+              <h4 className="text-sm sm:text-lg font-medium text-gray-700 min-w-[120px] sm:min-w-[140px] text-center">
                 {nombresMeses[mesActual.getMonth()]} {mesActual.getFullYear()}
               </h4>
               <button
                 onClick={() => cambiarMes(1)}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
+                className="p-2 sm:p-3 hover:bg-gray-100 rounded-full transition-colors cursor-pointer shadow-sm hover:shadow-md"
+                title="Mes siguiente"
               >
-                →
+                <span className="text-lg sm:text-xl font-bold">→</span>
               </button>
             </div>
           </div>
 
-          <div className="p-4">
+          <div className="p-3 sm:p-4">
             {/* Días de la semana */}
             <div className="grid grid-cols-7 gap-1 mb-2">
               {diasSemana.map(dia => (
-                <div key={dia} className="text-center text-sm font-medium text-gray-500 py-2">
+                <div key={dia} className="text-center text-xs sm:text-sm font-medium text-gray-500 py-2">
                   {dia}
                 </div>
               ))}
@@ -145,13 +147,13 @@ export default function SelectorFechaHorario() {
                     }}
                     disabled={!esDisponible || !dia.delMesActual}
                     className={`
-                      h-10 w-10 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer
+                      h-10 sm:h-12 w-10 sm:w-12 rounded-lg text-sm sm:text-base font-medium transition-all duration-200 cursor-pointer
                       ${!dia.delMesActual 
                         ? 'text-gray-300 cursor-not-allowed' 
                         : esDisponible
                           ? esSeleccionado
-                            ? 'bg-red-600 text-white shadow-md'
-                            : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
+                            ? 'bg-orange-500 text-white shadow-md hover:bg-orange-600'
+                            : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'
                           : 'text-gray-400 cursor-not-allowed'
                       }
                     `}
@@ -167,26 +169,27 @@ export default function SelectorFechaHorario() {
 
       {/* Selector de horario */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">
-          🕐 Selecciona el horario de entrega
+        <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">
+          🕐 <span className="hidden sm:inline">Selecciona el horario de entrega</span>
+          <span className="sm:hidden">Horario de entrega</span>
         </h3>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
           {horariosDisponibles.map((horario) => (
             <button
               key={horario}
               onClick={() => setHorarioSeleccionado(horario)}
-              className={`p-4 rounded-lg border-2 transition-all duration-200 ${
+              className={`p-3 sm:p-4 rounded-lg border-2 transition-all duration-200 shadow-sm hover:shadow-md ${
                 horarioSeleccionado === horario
-                  ? 'border-orange-500 bg-orange-50 text-orange-700'
-                  : 'border-gray-200 hover:border-gray-300 bg-white hover:bg-gray-50'
+                  ? 'border-orange-500 bg-orange-50 text-orange-700 shadow-md'
+                  : 'border-gray-200 hover:border-orange-300 bg-white hover:bg-orange-50'
               }`}
             >
               <div className="text-center">
-                <div className="text-2xl mb-1">
+                <div className="text-xl sm:text-2xl mb-1">
                   {horario === '12:00 PM' ? '🌞' : '🌅'}
                 </div>
-                <div className="text-lg font-semibold">{horario}</div>
-                <div className="text-sm text-gray-600">
+                <div className="text-sm sm:text-lg font-semibold">{horario}</div>
+                <div className="text-xs sm:text-sm text-gray-600">
                   {horario === '12:00 PM' ? 'Almuerzo' : 'Cena'}
                 </div>
               </div>

@@ -43,57 +43,58 @@ export default function ResumenPedido({ onConfirmar, onEditar }: ResumenPedidoPr
         
         <div className="space-y-3 mb-4">
           {comidasSeleccionadas.map((comidaSeleccionada, index) => (
-            <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-              <div className="flex items-center space-x-3">
+            <div key={index} className="bg-gray-50 rounded-lg p-3 sm:p-4">
+              {/* Información del plato */}
+              <div className="flex items-center space-x-3 mb-3 sm:mb-0">
                 {comidaSeleccionada.comida.imagen ? (
                   <img 
                     src={comidaSeleccionada.comida.imagen} 
                     alt={comidaSeleccionada.comida.nombre}
-                    className="w-12 h-12 object-cover rounded-lg"
+                    className="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded-lg flex-shrink-0"
                   />
                 ) : (
-                  <span className="text-2xl">🍽️</span>
+                  <span className="text-2xl sm:text-3xl">🍽️</span>
                 )}
-                <div>
-                  <p className="font-medium text-gray-800">{comidaSeleccionada.comida.nombre}</p>
-                  <p className="text-sm text-gray-500">
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-gray-800 text-sm sm:text-base truncate">{comidaSeleccionada.comida.nombre}</p>
+                  <p className="text-xs sm:text-sm text-gray-500">
                     {PriceCalculator.formatearPrecio(obtenerPrecioPrincipal(comidaSeleccionada.comida))} c/u
                   </p>
                 </div>
               </div>
               
-              {/* Controles de cantidad */}
-              <div className="flex items-center space-x-3">
+              {/* Controles de cantidad - Mejorados para responsive */}
+              <div className="flex items-center justify-between sm:justify-end space-x-3">
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={() => handleCambiarCantidad(comidaSeleccionada.comida.id, comidaSeleccionada.cantidad - 1)}
-                    className="w-8 h-8 rounded-full bg-red-100 hover:bg-red-200 text-red-600 flex items-center justify-center transition-colors duration-200"
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-red-100 hover:bg-red-200 text-red-600 flex items-center justify-center transition-colors duration-200 shadow-sm hover:shadow-md"
                   >
-                    -
+                    <span className="text-sm sm:text-base font-bold">-</span>
                   </button>
-                  <span className="w-8 text-center font-medium text-gray-800">
+                  <span className="w-8 sm:w-10 text-center font-medium text-gray-800 text-sm sm:text-base">
                     {comidaSeleccionada.cantidad}
                   </span>
                   <button
                     onClick={() => handleCambiarCantidad(comidaSeleccionada.comida.id, comidaSeleccionada.cantidad + 1)}
-                    className="w-8 h-8 rounded-full bg-green-100 hover:bg-green-200 text-green-600 flex items-center justify-center transition-colors duration-200"
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-green-100 hover:bg-green-200 text-green-600 flex items-center justify-center transition-colors duration-200 shadow-sm hover:shadow-md"
                   >
-                    +
+                    <span className="text-sm sm:text-base font-bold">+</span>
                   </button>
                 </div>
                 
                 {/* Botón eliminar */}
                 <button
                   onClick={() => handleEliminarComida(comidaSeleccionada.comida.id)}
-                  className="w-8 h-8 rounded-full bg-gray-200 hover:bg-red-200 text-gray-600 hover:text-red-600 flex items-center justify-center transition-colors duration-200"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gray-200 hover:bg-red-200 text-gray-600 hover:text-red-600 flex items-center justify-center transition-colors duration-200 shadow-sm hover:shadow-md"
                   title="Eliminar del pedido"
                 >
-                  🗑️
+                  <span className="text-sm sm:text-base">🗑️</span>
                 </button>
                 
                 {/* Precio total del item */}
-                <div className="text-right min-w-[80px]">
-                  <p className="font-semibold text-gray-800">
+                <div className="text-right min-w-[70px] sm:min-w-[80px]">
+                  <p className="font-semibold text-gray-800 text-sm sm:text-base">
                     {PriceCalculator.formatearPrecio(comidaSeleccionada.subtotal)}
                   </p>
                 </div>
@@ -104,9 +105,9 @@ export default function ResumenPedido({ onConfirmar, onEditar }: ResumenPedidoPr
 
         {/* Total incluido debajo de comidas */}
         <div className="border-t border-gray-200 pt-4">
-          <div className="flex justify-between items-center bg-red-50 p-4 rounded-lg">
+          <div className="flex justify-between items-center bg-orange-50 p-4 rounded-lg">
             <span className="text-lg font-semibold text-gray-800">Total a pagar:</span>
-            <span className="text-2xl font-bold text-red-600">
+            <span className="text-2xl font-bold text-orange-600">
               {PriceCalculator.formatearPrecio(total)}
             </span>
           </div>

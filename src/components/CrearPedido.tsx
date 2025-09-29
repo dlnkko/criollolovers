@@ -140,24 +140,24 @@ ${comidasSeleccionadas.map(item =>
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-red-600 shadow-lg border-b border-red-700">
+      <div className="bg-orange-500 shadow-lg border-b border-orange-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <button
               onClick={handleVolverInicio}
-              className="flex items-center space-x-2 text-red-100 hover:text-white transition-colors duration-200"
+              className="flex items-center space-x-2 bg-orange-400 hover:bg-orange-300 text-orange-900 font-medium px-4 py-2 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
-              <span>Volver al inicio</span>
+              <span className="text-sm sm:text-base">Volver al inicio</span>
             </button>
             
-            <h1 className="text-xl font-bold text-white">
+            <h1 className="text-lg sm:text-xl font-bold text-white">
               Crear Pedido
             </h1>
             
-            <div className="w-20"></div> {/* Espaciador para centrar el título */}
+            <div className="w-20 sm:w-24"></div> {/* Espaciador para centrar el título */}
           </div>
         </div>
       </div>
@@ -174,7 +174,7 @@ ${comidasSeleccionadas.map(item =>
               ].map((paso, index) => (
                 <div key={paso.id} className="flex items-center">
                   <div className={`flex items-center space-x-1 md:space-x-2 ${
-                    pasoActual === paso.id ? 'text-red-600' : 'text-gray-400'
+                    pasoActual === paso.id ? 'text-orange-600' : 'text-gray-400'
                   }`}>
                     <span className="text-sm md:text-lg">{paso.icon}</span>
                     <span className="font-medium text-xs md:text-sm">
@@ -260,7 +260,7 @@ ${comidasSeleccionadas.map(item =>
                     <button
                       onClick={siguientePaso}
                       disabled={!puedeAvanzar()}
-                      className="w-full bg-amber-300 hover:bg-amber-400 disabled:bg-amber-50 text-amber-800 font-bold py-4 px-6 md:px-8 rounded-lg transition-colors duration-200 disabled:cursor-not-allowed text-base md:text-lg"
+                      className="w-full bg-orange-400 hover:bg-orange-500 disabled:bg-orange-100 text-orange-900 font-bold py-4 px-6 md:px-8 rounded-lg transition-colors duration-200 disabled:cursor-not-allowed text-base md:text-lg shadow-sm hover:shadow-md"
                     >
                       <span className="hidden md:inline">
                         {pasoActual === 'seleccion' ? 'Continuar a Fecha y Horario' :
