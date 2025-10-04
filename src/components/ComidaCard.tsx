@@ -1,4 +1,4 @@
-import { Comida, obtenerPrecioComida, contarPlatosPrincipales, esComplemento } from '@/lib/supabaseClient'
+import { Comida, obtenerPrecioComida, contarPlatosPrincipales, esComplemento, obtenerMinimoPorciones } from '@/lib/supabaseClient'
 import { PriceCalculator } from '@/utils/priceCalculator'
 import { usePedidosStore } from '@/store/pedidosStore'
 
@@ -20,28 +20,20 @@ export default function ComidaCard({ comida }: ComidaCardProps) {
   const platosPrincipalesActuales = contarPlatosPrincipales(comidasSeleccionadas)
   const esComplementoEsta = ['Puré de Papa', 'Arroz Blanco', 'Papa a la Huancaína'].includes(comida.nombre)
   const platosDespues = esComplementoEsta ? platosPrincipalesActuales : platosPrincipalesActuales + 1
-  const habríaCombo = platosDespues >= 2
+  const habríaCombo = platosDespues >= 3
   
   // Mostrar el precio que tendría esta comida
   const precioMostrar = obtenerPrecioComida(comida, habríaCombo)
 
   const handleAgregar = () => {
-    // Para platos principales, validar mínimo 3 porciones
-    if (esPlatoPrincipal) {
-      if (cantidadActual === 0) {
-        // Primera vez agregando: agregar 3 porciones mínimo
-        agregarComida(comida, 3)
-      } else {
-        // Ya existe: agregar de 1 en 1
-        actualizarCantidad(comida.id, cantidadActual + 1)
-      }
+    const minimoPorciones = obtenerMinimoPorciones(comida)
+    
+    if (cantidadActual === 0) {
+      // Primera vez agregando: agregar el mínimo de porciones
+      agregarComida(comida, minimoPorciones)
     } else {
-      // Para complementos: funciona normal (1 en 1)
-      if (cantidadActual === 0) {
-        agregarComida(comida, 1)
-      } else {
-        actualizarCantidad(comida.id, cantidadActual + 1)
-      }
+      // Ya existe: agregar de 1 en 1
+      actualizarCantidad(comida.id, cantidadActual + 1)
     }
   }
 

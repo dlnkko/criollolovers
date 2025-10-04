@@ -1,7 +1,7 @@
 'use client'
 
 import { usePedidosStore } from '@/store/pedidosStore'
-import { ComidaSeleccionada } from '@/lib/supabaseClient'
+import { ComidaSeleccionada, obtenerMinimoPorciones } from '@/lib/supabaseClient'
 import { PriceCalculator } from '@/utils/priceCalculator'
 
 interface SelectorCantidadProps {
@@ -13,13 +13,16 @@ export default function SelectorCantidad({ comidaSeleccionada }: SelectorCantida
   
   // Calcular precio unitario actual (ya incluye la lógica de combo)
   const precioUnitario = comidaSeleccionada.subtotal / comidaSeleccionada.cantidad
+  
+  // Obtener el mínimo de porciones para esta comida
+  const minimoPorciones = obtenerMinimoPorciones(comidaSeleccionada.comida)
 
   const handleIncrementar = () => {
     actualizarCantidad(comidaSeleccionada.comida.id, comidaSeleccionada.cantidad + 1)
   }
 
   const handleDecrementar = () => {
-    if (comidaSeleccionada.cantidad > 1) {
+    if (comidaSeleccionada.cantidad > minimoPorciones) {
       actualizarCantidad(comidaSeleccionada.comida.id, comidaSeleccionada.cantidad - 1)
     } else {
       removerComida(comidaSeleccionada.comida.id)
@@ -37,9 +40,6 @@ export default function SelectorCantidad({ comidaSeleccionada }: SelectorCantida
           <h4 className="font-medium text-gray-800 text-sm truncate">
             {comidaSeleccionada.comida.nombre}
           </h4>
-          <div className="text-xs text-gray-500">
-            {PriceCalculator.formatearPrecio(precioUnitario)} × {comidaSeleccionada.cantidad}
-          </div>
         </div>
         
         <div className="flex items-center space-x-2">

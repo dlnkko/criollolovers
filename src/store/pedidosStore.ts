@@ -48,7 +48,7 @@ export const usePedidosStore = create<PedidosState>((set, get) => ({
       
       // Calcular si hay combo con la nueva lista
       const platosPrincipales = contarPlatosPrincipales(nuevasComidasSeleccionadas)
-      const hayCombo = platosPrincipales >= 2
+      const hayCombo = platosPrincipales >= 3
       
       // Recalcular todos los subtotales
       const comidasConPreciosCorrectos = nuevasComidasSeleccionadas.map(cs => ({
@@ -101,7 +101,7 @@ export const usePedidosStore = create<PedidosState>((set, get) => ({
     }
     
     const platosPrincipales = contarPlatosPrincipales(comidasSeleccionadas)
-    const hayCombo = platosPrincipales >= 2
+    const hayCombo = platosPrincipales >= 3
     
     console.log('🔄 Recalculando precios:', {
       totalComidas: comidasSeleccionadas.length,

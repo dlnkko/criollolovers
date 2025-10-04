@@ -47,16 +47,22 @@ export default function SelectorFechaHorario() {
     hoy.setHours(0, 0, 0, 0)
     fecha.setHours(0, 0, 0, 0)
     
-    return fecha > hoy && fecha <= finAño2025
+    // Calcular la fecha mínima (hoy + 2 días)
+    const fechaMinima = new Date(hoy)
+    fechaMinima.setDate(hoy.getDate() + 2)
+    
+    return fecha >= fechaMinima && fecha <= finAño2025
   }
 
   const cambiarMes = (direccion: number) => {
     const nuevaFecha = new Date(mesActual)
     nuevaFecha.setMonth(mesActual.getMonth() + direccion)
     
-    // No permitir ir antes del mes actual o después de diciembre 2025
+    // No permitir ir antes del mes actual (con 2 días de anticipación) o después de diciembre 2025
     const hoy = new Date()
-    const limiteInferior = new Date(hoy.getFullYear(), hoy.getMonth(), 1)
+    const fechaMinima = new Date(hoy)
+    fechaMinima.setDate(hoy.getDate() + 2)
+    const limiteInferior = new Date(fechaMinima.getFullYear(), fechaMinima.getMonth(), 1)
     const limiteSuperior = new Date(2025, 11, 31)
     
     if (nuevaFecha >= limiteInferior && nuevaFecha <= limiteSuperior) {
@@ -90,6 +96,23 @@ export default function SelectorFechaHorario() {
 
   return (
     <div className="space-y-6">
+      {/* Mensaje informativo */}
+      <div className="bg-orange-100 border-l-4 border-orange-500 p-4 rounded-r-lg">
+        <div className="flex items-center">
+          <div className="flex-shrink-0">
+            <span className="text-orange-500 text-xl">⚠️</span>
+          </div>
+          <div className="ml-3">
+            <p className="text-sm font-semibold text-orange-800">
+              PEDIDOS CON 2 DÍAS DE ANTICIPACIÓN
+            </p>
+            <p className="text-sm text-orange-700 mt-1">
+              Debes realizar tu pedido con al menos 2 días de anticipación
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Calendario */}
       <div>
         <div className="bg-white rounded-lg border border-gray-200 shadow-sm">

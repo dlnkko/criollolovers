@@ -6,7 +6,7 @@ import { contarPlatosPrincipales } from '@/lib/supabaseClient'
 export default function IndicadorCombo() {
   const { comidasSeleccionadas } = usePedidosStore()
   const platosPrincipales = contarPlatosPrincipales(comidasSeleccionadas)
-  const hayCombo = platosPrincipales >= 2
+  const hayCombo = platosPrincipales >= 3
 
   if (comidasSeleccionadas.length === 0) return null
 
@@ -38,10 +38,10 @@ export default function IndicadorCombo() {
         </div>
       </div>
       
-      {!hayCombo && platosPrincipales === 1 && (
+      {!hayCombo && platosPrincipales < 3 && (
         <div className="mt-2 p-2 bg-orange-100 rounded border border-orange-200">
           <p className="text-xs text-orange-700">
-            💡 <strong>Tip:</strong> Agrega otro plato principal para activar precios combo
+            💡 <strong>Tip:</strong> Agrega {3 - platosPrincipales} plato{3 - platosPrincipales !== 1 ? 's' : ''} principal{3 - platosPrincipales !== 1 ? 'es' : ''} más para activar precios combo
           </p>
         </div>
       )}

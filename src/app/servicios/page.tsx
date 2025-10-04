@@ -13,57 +13,79 @@ export default function ServiciosPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50">
       {/* Hero Section con imagen principal */}
-      <div className="relative overflow-hidden">
+      <div className="relative min-h-[100svh] overflow-hidden">
         {/* Imagen de fondo principal */}
         <div className="absolute inset-0 z-0">
           <img
             src="https://pkvkylkpgcqldzfbcwov.supabase.co/storage/v1/object/public/comidas/cocina-peruana-scaled.jpg"
             alt="Cocina peruana tradicional"
-            className="w-full h-[100vh] object-cover"
+            className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
         {/* Contenido centrado sobre la imagen */}
-        <div className="relative z-10 h-[100vh] flex items-center justify-center">
-          <div className="text-center text-white px-6 md:px-8 lg:px-12 max-w-6xl mx-auto">
-            {/* Título principal */}
-            <div className="mb-8">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 tracking-wider" style={{textShadow: '3px 3px 10px rgba(0,0,0,0.9)', fontFamily: 'Impact, Arial Black, sans-serif', letterSpacing: '0.15em', fontWeight: '900'}}>
-                CRIOLLO LOVERS
-              </h1>
-              
-              {/* Texto descriptivo con tipografía elegante */}
-              <div className="px-4 md:px-8 lg:px-12 max-w-5xl mx-auto">
-                {/* Primera sección - Título principal */}
-                <div className="mb-6">
-                  <h2 className="text-xl md:text-2xl lg:text-3xl font-light leading-tight mb-4" style={{textShadow: '2px 2px 8px rgba(0,0,0,0.8)', fontFamily: 'Georgia, serif', letterSpacing: '0.3px', fontWeight: '300'}}>
-                    Preparamos a pedido las recetas tradicionales
-                  </h2>
-                </div>
+        <div className="relative z-10 min-h-[100svh] flex flex-col items-center justify-center px-4 text-white py-6 overflow-visible">
+  {/* Bloque contenedor del título y texto */}
+  <div className="max-w-4xl w-full text-center space-y-6">
+    
+    {/* Título (fuera del fondo translúcido pero alineado visualmente) */}
+    <h1
+      className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-wider"
+      style={{
+        textShadow: '3px 3px 10px rgba(0,0,0,0.9)',
+        fontFamily: 'Impact, Arial Black, sans-serif',
+        letterSpacing: '0.15em',
+        fontWeight: 900
+      }}
+    >
+      CRIOLLO LOVERS
+    </h1>
 
-                {/* Segunda sección - Especialidad */}
-                <div className="mb-6">
-                  <p className="text-lg md:text-xl lg:text-2xl font-light leading-relaxed" style={{textShadow: '2px 2px 8px rgba(0,0,0,0.8)', fontFamily: 'Georgia, serif', letterSpacing: '0.2px', fontWeight: '300'}}>
-                    Especialidad criolla para tus eventos, cumpleaños u ocasiones especiales.
-                  </p>
-                </div>
+    {/* Fondo translúcido que envuelve el resto */}
+    <div className="bg-black/40 backdrop-blur-md rounded-2xl p-6 sm:p-8 md:p-10 shadow-2xl text-left mx-auto w-full max-w-3xl">
+      <h2
+        className="text-lg sm:text-xl md:text-2xl font-light mb-5 leading-snug"
+        style={{
+          textShadow: '2px 2px 8px rgba(0,0,0,0.6)',
+          fontFamily: 'Georgia, serif',
+          letterSpacing: '0.3px',
+          fontWeight: 300
+        }}
+      >
+        Llevamos el sabor de la comida criolla a tus celebraciones.
+      </h2>
 
-                {/* Tercera sección - Servicio */}
-                <div className="mb-6">
-                  <p className="text-base md:text-lg lg:text-xl font-light leading-relaxed" style={{textShadow: '2px 2px 8px rgba(0,0,0,0.8)', fontFamily: 'Helvetica Neue, Arial, sans-serif', letterSpacing: '0.4px', fontWeight: '300'}}>
-                    Nosotros lo preparamos y te lo enviamos el día y rango de hora seleccionado
-                  </p>
-                </div>
+      <ul className="space-y-4">
+        <li className="flex items-start gap-3">
+          <span>🗂️</span>
+          <p className="text-base sm:text-lg leading-relaxed">
+            Platos preparados a pedido, perfectos para cumpleaños, eventos u ocasiones especiales.
+          </p>
+        </li>
 
-                {/* Cuarta sección - Entrega */}
-                <div className="mb-8">
-                  <p className="text-base md:text-lg lg:text-xl font-light leading-relaxed" style={{textShadow: '2px 2px 8px rgba(0,0,0,0.8)', fontFamily: 'Helvetica Neue, Arial, sans-serif', letterSpacing: '0.4px', fontWeight: '300'}}>
-                    Lo recibirás en envases por tipo de comida, para que decidas el mejor momento para compartirlo
-                  </p>
-                </div>
-              </div>
-            </div>
+        <li className="flex items-start gap-3">
+          <span>📌</span>
+          <p className="text-base sm:text-lg leading-relaxed">
+            Solo necesitamos tu pedido con 2 días de anticipación (mínimo 4 porciones por plato).
+          </p>
+        </li>
+
+        <li className="flex items-start gap-3">
+          <span>🕒</span>
+          <p className="text-base sm:text-lg leading-relaxed">
+            El día elegido, nosotros cocinamos y te lo enviamos en el rango de hora que prefieras.
+          </p>
+        </li>
+
+        <li className="flex items-start gap-3">
+          <span>🥘</span>
+          <p className="text-base sm:text-lg leading-relaxed">
+            Recibirás cada preparación en envases separados, para que decidas el mejor momento de compartirlo.
+          </p>
+        </li>
+      </ul>
+    </div>
 
             {/* Botones de navegación */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8 md:mt-12">
@@ -112,6 +134,6 @@ export default function ServiciosPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
   )
 }

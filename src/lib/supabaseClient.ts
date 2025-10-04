@@ -101,3 +101,14 @@ export function obtenerPrecioComida(comida: Comida, hayCombo: boolean): number {
 export function obtenerPrecioPrincipal(comida: Comida): number {
   return comida.precio1 ?? comida.precio2 ?? comida.costo ?? 0
 }
+
+// Función para obtener el mínimo de porciones según el tipo de comida
+export function obtenerMinimoPorciones(comida: Comida): number {
+  // Arroz Blanco: mínimo 2 porciones
+  if (comida.nombre === 'Arroz Blanco') {
+    return 2
+  }
+  
+  // Todos los demás (platos principales y complementos): mínimo 4 porciones
+  return 4
+}

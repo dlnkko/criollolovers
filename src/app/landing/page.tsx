@@ -67,7 +67,7 @@ export default function LandingPage() {
                 className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-200 border-2 border-white/30 hover:border-white/50 cursor-pointer hover:scale-105"
                 style={{fontFamily: 'Arial, sans-serif', fontWeight: '700'}}
               >
-                Conocer más
+                Lo que ofrecemos
               </button>
             </div>
 
