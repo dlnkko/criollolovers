@@ -89,7 +89,9 @@ export const usePedidosStore = create<PedidosState>((set, get) => ({
   },
 
   setHorarioSeleccionado: (horario: string) => {
+    console.log('📝 Store: Actualizando horario seleccionado a:', horario)
     set({ horarioSeleccionado: horario })
+    console.log('✅ Store: Horario actualizado correctamente')
   },
 
   recalcularPrecios: () => {

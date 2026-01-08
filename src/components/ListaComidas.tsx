@@ -59,59 +59,68 @@ export default function ListaComidas() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10 md:space-y-12">
       {/* Platos Principales - Carrusel Horizontal */}
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center">
-            <h3 className="text-lg md:text-xl font-bold text-gray-800 flex items-center">
-              <span className="text-xl md:text-2xl mr-2">🍽️</span>
-              <span className="hidden md:inline">Platos Principales</span>
-              <span className="md:hidden">Principales</span>
-            </h3>
-            <div className="ml-2 md:ml-3 bg-orange-100 text-orange-800 text-xs font-medium px-2 py-1 rounded-full">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg">
+              <span className="text-2xl md:text-3xl">🍽️</span>
+            </div>
+            <div>
+              <h3 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-900 flex items-center">
+                <span className="hidden md:inline">Platos Principales</span>
+                <span className="md:hidden">Principales</span>
+              </h3>
+              <p className="text-sm text-gray-600 hidden md:block">Deliciosos platos criollos</p>
+            </div>
+            <div className="ml-2 md:ml-4 bg-gradient-to-r from-orange-100 to-orange-50 text-orange-700 text-xs font-bold px-3 py-1.5 rounded-full border border-orange-200 shadow-sm">
               <span className="hidden md:inline">{platosPrincipales.length} platos</span>
               <span className="md:hidden">{platosPrincipales.length}</span>
             </div>
           </div>
         </div>
         
-        
-        <div className="hidden md:block">
-          <div className="flex items-center gap-2">
-            <button 
-              onClick={() => {
-                const container = document.getElementById('carousel-principales')
-                if (container) container.scrollLeft -= 200
-              }}
-              className="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 cursor-pointer transform hover:scale-110"
-            >
-              ←
-            </button>
-            <button 
-              onClick={() => {
-                const container = document.getElementById('carousel-principales')
-                if (container) container.scrollLeft += 200
-              }}
-              className="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 cursor-pointer transform hover:scale-110"
-            >
-              →
-            </button>
-          </div>
+        {/* Controles del carrusel - Desktop */}
+        <div className="hidden md:flex items-center gap-3 mb-4">
+          <button 
+            onClick={() => {
+              const container = document.getElementById('carousel-principales')
+              if (container) container.scrollLeft -= 300
+            }}
+            className="p-2.5 rounded-xl bg-white hover:bg-gray-50 border-2 border-gray-200 hover:border-orange-300 transition-all duration-300 cursor-pointer transform hover:scale-110 shadow-md hover:shadow-lg active:scale-95"
+            aria-label="Anterior"
+          >
+            <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button 
+            onClick={() => {
+              const container = document.getElementById('carousel-principales')
+              if (container) container.scrollLeft += 300
+            }}
+            className="p-2.5 rounded-xl bg-white hover:bg-gray-50 border-2 border-gray-200 hover:border-orange-300 transition-all duration-300 cursor-pointer transform hover:scale-110 shadow-md hover:shadow-lg active:scale-95"
+            aria-label="Siguiente"
+          >
+            <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
         
         {/* Carrusel horizontal */}
         <div className="relative">
           <div 
             id="carousel-principales"
-            className="carousel-scroll overflow-x-auto pb-4"
+            className="carousel-scroll overflow-x-auto pb-4 -mx-2 px-2"
             style={{ scrollBehavior: 'smooth' }}
           >
-            <div className="flex space-x-3 md:space-x-4" style={{ width: 'max-content' }}>
+            <div className="flex space-x-4 md:space-x-5" style={{ width: 'max-content' }}>
               {platosPrincipales.map((comida) => (
                 <div 
                   key={comida.id} 
-                  className="flex-shrink-0 w-52 md:w-60"
+                  className="flex-shrink-0 w-56 md:w-64 lg:w-72"
                 >
                   <ComidaCard comida={comida} />
                 </div>
@@ -120,62 +129,72 @@ export default function ListaComidas() {
           </div>
           
           {/* Gradiente fade al final */}
-          <div className="absolute top-0 right-0 w-6 h-full bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
+          <div className="absolute top-0 right-0 w-12 h-full bg-gradient-to-l from-gray-50 via-gray-50/50 to-transparent pointer-events-none"></div>
         </div>
       </div>
 
       {/* Complementos - Carrusel Horizontal */}
       {complementos.length > 0 && (
         <div>
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center">
-              <h3 className="text-lg md:text-xl font-bold text-gray-800 flex items-center">
-                <span className="text-xl md:text-2xl mr-2">🥗</span>
-                <span className="hidden md:inline">Complementos</span>
-                <span className="md:hidden">Complementos</span>
-              </h3>
-              <div className="ml-2 md:ml-3 bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center space-x-3">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
+                <span className="text-2xl md:text-3xl">🥗</span>
+              </div>
+              <div>
+                <h3 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-900 flex items-center">
+                  <span className="hidden md:inline">Complementos</span>
+                  <span className="md:hidden">Complementos</span>
+                </h3>
+                <p className="text-sm text-gray-600 hidden md:block">Acompaña tu plato principal</p>
+              </div>
+              <div className="ml-2 md:ml-4 bg-gradient-to-r from-green-100 to-green-50 text-green-700 text-xs font-bold px-3 py-1.5 rounded-full border border-green-200 shadow-sm">
                 <span className="hidden md:inline">{complementos.length} opciones</span>
                 <span className="md:hidden">{complementos.length}</span>
               </div>
             </div>
           </div>
           
-          <div className="hidden md:block">
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={() => {
-                  const container = document.getElementById('carousel-complementos')
-                  if (container) container.scrollLeft -= 200
-                }}
-                className="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 cursor-pointer transform hover:scale-110"
-              >
-                ←
-              </button>
-              <button 
-                onClick={() => {
-                  const container = document.getElementById('carousel-complementos')
-                  if (container) container.scrollLeft += 200
-                }}
-                className="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 cursor-pointer transform hover:scale-110"
-              >
-                →
-              </button>
-            </div>
+          {/* Controles del carrusel - Desktop */}
+          <div className="hidden md:flex items-center gap-3 mb-4">
+            <button 
+              onClick={() => {
+                const container = document.getElementById('carousel-complementos')
+                if (container) container.scrollLeft -= 300
+              }}
+              className="p-2.5 rounded-xl bg-white hover:bg-gray-50 border-2 border-gray-200 hover:border-green-300 transition-all duration-300 cursor-pointer transform hover:scale-110 shadow-md hover:shadow-lg active:scale-95"
+              aria-label="Anterior"
+            >
+              <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button 
+              onClick={() => {
+                const container = document.getElementById('carousel-complementos')
+                if (container) container.scrollLeft += 300
+              }}
+              className="p-2.5 rounded-xl bg-white hover:bg-gray-50 border-2 border-gray-200 hover:border-green-300 transition-all duration-300 cursor-pointer transform hover:scale-110 shadow-md hover:shadow-lg active:scale-95"
+              aria-label="Siguiente"
+            >
+              <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
           
           {/* Carrusel horizontal */}
           <div className="relative">
             <div 
               id="carousel-complementos"
-              className="carousel-scroll overflow-x-auto pb-4"
+              className="carousel-scroll overflow-x-auto pb-4 -mx-2 px-2"
               style={{ scrollBehavior: 'smooth' }}
             >
-              <div className="flex space-x-3 md:space-x-4" style={{ width: 'max-content' }}>
+              <div className="flex space-x-4 md:space-x-5" style={{ width: 'max-content' }}>
                 {complementos.map((comida) => (
                   <div 
                     key={comida.id} 
-                    className="flex-shrink-0 w-52 md:w-60"
+                    className="flex-shrink-0 w-56 md:w-64 lg:w-72"
                   >
                     <ComidaCard comida={comida} />
                   </div>
@@ -184,20 +203,22 @@ export default function ListaComidas() {
             </div>
             
             {/* Gradiente fade al final */}
-            <div className="absolute top-0 right-0 w-6 h-full bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-12 h-full bg-gradient-to-l from-gray-50 via-gray-50/50 to-transparent pointer-events-none"></div>
           </div>
         </div>
       )}
 
       {/* Información sobre precios combo */}
       {platosPrincipales.length > 0 && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
-          <div className="flex items-start space-x-2 sm:space-x-3">
-            <div className="text-blue-600 text-base sm:text-lg">💡</div>
-            <div className="text-blue-800">
-              <p className="font-medium mb-1 text-sm sm:text-base">¡Combos disponibles!</p>
-              <p className="text-xs sm:text-sm">
-                Con 2+ platos principales = precio combo automático
+        <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-blue-50 border-2 border-blue-200 rounded-2xl p-4 sm:p-5 shadow-lg">
+          <div className="flex items-start space-x-3 sm:space-x-4">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md flex-shrink-0">
+              <span className="text-xl sm:text-2xl">💡</span>
+            </div>
+            <div className="flex-1">
+              <p className="font-bold mb-1.5 text-base sm:text-lg text-blue-900">¡Combos disponibles!</p>
+              <p className="text-sm sm:text-base text-blue-700 leading-relaxed">
+                Al seleccionar 2 o más platos principales, el precio combo se aplica automáticamente. ¡Ahorra mientras disfrutas más variedad!
               </p>
             </div>
           </div>
