@@ -13,7 +13,11 @@ export default function ResumenPedido({ onConfirmar, onEditar }: ResumenPedidoPr
   const { comidasSeleccionadas, fechaSeleccionada, horarioSeleccionado, total, actualizarCantidad, removerComida } = usePedidosStore()
 
   const formatearFecha = (fecha: string) => {
-    return new Date(fecha).toLocaleDateString('es-PE', {
+    // Crear fecha sin problemas de zona horaria
+    const [year, month, day] = fecha.split('-').map(Number)
+    const fechaObj = new Date(year, month - 1, day)
+    
+    return fechaObj.toLocaleDateString('es-PE', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
